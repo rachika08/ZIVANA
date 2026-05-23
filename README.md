@@ -1,7 +1,7 @@
-# 🌍 Wanderlust
+#  ZIVANA
 
-Wanderlust is a full-stack Airbnb-inspired web application built using the MERN stack.  
-The project allows users to explore listings, manage properties, and experience a real-world full-stack web application architecture.
+ZIVANA is a Full-Stack Vacation Rental Platform web application built using the MERN stack.  
+The project allows users to explore accomodations, manage properties, and experience a real-world full-stack web application architecture.
 
 This project focuses on backend development, RESTful APIs, authentication, database design, and server-side rendering.
 
