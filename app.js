@@ -15,6 +15,7 @@ const ExpressError=require("./utils/ExpressError.js");
 const {listingSchema,reviewSchema}=require('./schema.js');//used for server side schema validation
 const Review=require("./models/review.js");
 const session=require("express-session");
+const MongoStore=require("connect-mongo").default;
 const flash=require("connect-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
@@ -24,8 +25,22 @@ const listingRouter=require("./routes/listing.js");//router pages
 const reviewRouter=require("./routes/review.js");//router pages
 const userRouter=require("./routes/user.js")
 
+const dbUrl=process.env.ATLAS_DB_URL;
+
+const store=MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto:{
+        secret:"mysupersecret",
+    },
+    touchAfter: 24 * 3600,
+});
+
+store.on("error",(err)=>{
+    console.log("ERROR IN MONGO SESSION STORE",err);
+});
 
 const sessionOptions={
+    store,
     secret:"mysupersecret",
     resave:false,
     saveUninitialized:true,
@@ -84,10 +99,10 @@ main().then(()=>{
 });
 
 async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(dbUrl);
 }
 
-
+//'mongodb://127.0.0.1:27017/wanderlust'
 
 
 

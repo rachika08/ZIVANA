@@ -17,16 +17,28 @@ module.exports.showListing=async (req,res)=>{
         populate:{path:"author"},
     }).populate("owner");
     if(!allInformation){
-        req.flash("error","Listing you requested for does not exist");
+        req.flash("error","Property you requested for does not exist");
         return res.redirect("/listings");
     }
     res.render("listings/show.ejs",{allInformation});
 }
 
 module.exports.createListing=async (req,res,next)=>{
-        let url=req.file.path;
-        let filename=req.file.filename;
-        console.log(url,"..",filename);
+        // let url=req.file.path;
+        // let filename=req.file.filename;
+        // console.log(url,"..",filename);
+        let url;
+        let filename;
+
+        if (req.file) {
+            url = req.file.path;
+            filename = req.file.filename;
+        } else {
+            url = req.body.listing.image;
+            filename = "custom";
+        }
+
+        console.log(url, "..", filename);
         let newlisting= new Listing(req.body.listing);
         newlisting.owner=req.user._id;
         newlisting.image={url,filename};
@@ -41,6 +53,9 @@ module.exports.createListing=async (req,res,next)=>{
                 q: location,
                 format: "json",
                 limit: 1
+            },
+            headers:{
+                "User-Agent": "ZIVANA/1.0"
             }
             }
         )   ;
@@ -58,7 +73,7 @@ module.exports.createListing=async (req,res,next)=>{
         }
 
         await newlisting.save();
-        req.flash("success","New Listing created!");
+        req.flash("success","New Stay created!");
         res.redirect("/listings");    
     }
 
@@ -66,7 +81,7 @@ module.exports.renderEditForm=async (req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
     if(!listing){
-        req.flash("error","Listing you requested for does not exist");
+        req.flash("error","Property you requested for does not exist");
         return res.redirect("/listings");
     }
     let originalImageUrl = listing.image.url;
@@ -88,7 +103,7 @@ module.exports.updateListing=async (req,res)=>{
         listing.image={url,filename};
         await listing.save();}
     
-    req.flash("success","Listing Updated!");
+    req.flash("success","Your Stay Updated!");
     res.redirect(`/listings/${id}`);
 
 }
@@ -96,6 +111,6 @@ module.exports.updateListing=async (req,res)=>{
 module.exports.destroyListing=async (req,res)=>{
     let {id}=req.params;
     await Listing.findByIdAndDelete(id);
-    req.flash("success","Listing Deleted!");
+    req.flash("success","Property Deleted!");
     res.redirect("/listings");
 }
