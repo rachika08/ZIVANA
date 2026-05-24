@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "22.15.1"
+  },
   "name": "major-project",
   "version": "1.0.0",
   "main": "index.js",
@@ -14,7 +17,6 @@
     "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^6.0.0",
-    "connect-mongostore": "^0.1.4",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",

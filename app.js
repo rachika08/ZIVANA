@@ -30,7 +30,7 @@ const dbUrl=process.env.ATLAS_DB_URL;
 const store=MongoStore.create({
     mongoUrl: dbUrl,
     crypto:{
-        secret:"mysupersecret",
+        secret:process.env.SECRET,
     },
     touchAfter: 24 * 3600,
 });
@@ -41,7 +41,7 @@ store.on("error",(err)=>{
 
 const sessionOptions={
     store,
-    secret:"mysupersecret",
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -58,7 +58,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
-// ejs mate used for boilerolate
+// ejs mate used for boilerplate
 app.use(express.static(path.join(__dirname,"public")));
 
 app.use(session(sessionOptions));
@@ -79,14 +79,7 @@ app.use((req,res,next)=>{
     next();
 })
 
-// app.get("/demouser",async(req,res)=>{
-//     let fakeUser=new User({
-//         email:"student@gmail.com",
-//         username:"delta-student"
-//     })
-//     let registeredUser=await User.register(fakeUser,"helloworld");
-//     res.send(registeredUser);
-// })
+
 
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
@@ -102,7 +95,6 @@ async function main(){
     await mongoose.connect(dbUrl);
 }
 
-//'mongodb://127.0.0.1:27017/wanderlust'
 
 
 
@@ -113,7 +105,7 @@ app.all(/.*/,(req,res,next)=>{
 
 app.use((err,req,res,next)=>{
     let {statusCode=500,message="something went wrong"}=err;
-    // res.status(statusCode).send(message);
+    
     res.render("error.ejs",{message});
 })
 
@@ -124,18 +116,3 @@ app.listen(8080,(req,res)=>{
 
 
 
-// app.get("/testlisting", async(req,res)=>{
-//     const sampleListing=new Listing({
-//         title:"My new villa",
-//         description:"By the beach",
-//         price:1200,
-//         location:"Bandra,Mumbai",
-//         country:"India"
-
-//     });
-//     await sampleListing.save();
-//     console.log("info saved");
-//     res.send("success");
-
-// }
-// )
