@@ -5,6 +5,8 @@ The project allows users to explore accomodations, manage properties, and experi
 
 This project focuses on backend development, RESTful APIs, authentication, database design, and server-side rendering.
 
+Live Link- https://zivana.onrender.com
+
 ---
 
 ## 🚀 Features
