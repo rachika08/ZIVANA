@@ -1,4 +1,4 @@
-<% layout('/layouts/boilerplate') -%>
+<!-- <% layout('/layouts/boilerplate') -%>
 
     <body>
         <div class="row mt-3">
@@ -53,4 +53,69 @@
         
     </body>
 
-    
+     -->
+
+<% layout('/layouts/boilerplate') -%>
+
+<div class="form-page">
+  <div class="form-card form-card-wide">
+    <p class="form-page-subtitle"><i class="fa-solid fa-pen-to-square me-1" style="color:var(--accent)"></i> Edit Listing</p>
+    <h1 class="form-page-title">Update your stay</h1>
+
+    <form method="post" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+
+      <div class="mb-4">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
+        <div class="invalid-feedback">Title looks catchy!</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" rows="5" class="form-control" required><%= listing.description %></textarea>
+        <div class="invalid-feedback">Please enter a description.</div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Current Image</label>
+        <br>
+        <img src="<%= originalImageUrl %>" alt="Current listing image" class="original-img-preview">
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="form-label">Replace Image</label>
+        <input type="file" name="listing[image]" class="form-control form-control-file-styled">
+        <small style="color:var(--brown);font-size:0.78rem;margin-top:.3rem;display:block">Leave blank to keep the current image.</small>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label for="price" class="form-label">Price per Night (&#8377;)</label>
+          <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+          <div class="invalid-feedback">Price should be valid.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
+          <div class="invalid-feedback">Country should be valid.</div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+        <div class="invalid-feedback">Location should be valid.</div>
+      </div>
+
+      <div class="d-flex gap-3">
+        <button type="submit" class="btn-primary-zivana" style="width:auto;padding:.75rem 2.5rem">
+          <i class="fa-solid fa-floppy-disk"></i> Save Changes
+        </button>
+        <a href="/listings/<%= listing._id %>" class="btn-secondary-zivana" style="width:auto;padding:.75rem 2rem;text-decoration:none">
+          Cancel
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>

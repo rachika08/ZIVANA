@@ -1,6 +1,6 @@
-<% layout('/layouts/boilerplate') -%>
+<!-- <% layout('/layouts/boilerplate') -%> -->
 <!-- add listing page -->
-<body>
+<!-- <body>
     <div class="row mt-3">
         <div class="col-8 offset-2">
     <h1>Add details about your stay</h1>
@@ -15,13 +15,13 @@
             <label for="description" class="form-label" >Description</label>
             <textarea name="listing[description]"  cols="30" rows="10"class="form-control" required></textarea>
         
-        </div>
+        </div> -->
         <!-- <div class="mb-3">
             <label for="image" class="form-label">Image</label>
         <input type="text" name="listing[image]" placeholder="enter url of image" class="form-control" required>
         </div> -->
 
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="image" class="form-label">Upload Listing Image</label>
         <input type="file" name="listing[image]" placeholder="enter url of image" class="form-control" required>
         </div>
@@ -54,4 +54,60 @@
     </form>
     </div>
     </div>
-</body>
+</body> -->
+
+
+<% layout('/layouts/boilerplate') -%>
+
+<div class="form-page">
+  <div class="form-card form-card-wide">
+    <p class="form-page-subtitle"><i class="fa-solid fa-compass me-1" style="color:var(--accent)"></i> New Listing</p>
+    <h1 class="form-page-title">Share your stay</h1>
+
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+
+      <div class="mb-4">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="listing[title]" placeholder="A cozy mountain retreat..." class="form-control" required>
+        <div class="valid-feedback">Title looks great!</div>
+        <div class="invalid-feedback">Please enter a title.</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" rows="5" class="form-control" placeholder="Describe what makes your place special..." required></textarea>
+        <div class="invalid-feedback">Please add a short description.</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="image" class="form-label">Listing Image</label>
+        <input type="file" name="listing[image]" class="form-control form-control-file-styled" required>
+        <div class="invalid-feedback">Please upload an image.</div>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label for="price" class="form-label">Price per Night (&#8377;)</label>
+          <input type="number" name="listing[price]" placeholder="1200" class="form-control" required>
+          <div class="invalid-feedback">Please enter a valid price.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" name="listing[country]" placeholder="India" class="form-control" required>
+          <div class="invalid-feedback">Please enter a country.</div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" name="listing[location]" placeholder="Jaipur, Rajasthan" class="form-control" required>
+        <div class="invalid-feedback">Please enter a location.</div>
+      </div>
+
+      <button type="submit" class="btn-primary-zivana">
+        <i class="fa-solid fa-plus"></i> Add Listing
+      </button>
+
+    </form>
+  </div>
+</div>

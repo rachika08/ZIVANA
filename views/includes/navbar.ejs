@@ -1,38 +1,41 @@
-<nav class="navbar navbar-expand-lg sticky-top border-bottom bg-body-tertiary">
+<nav class="navbar navbar-expand-lg sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa fa-compass" aria-hidden="true"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <a class="navbar-brand" href="/listings">
+      <i class="fa fa-compass" aria-hidden="true"></i>
+      <span class="brand-text">Zivana</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" href="/listings">Explore</a>
         </li>
-        
-        
       </ul>
-
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav align-items-center gap-2">
         <li class="nav-item">
-          <a class="nav-link" href="listings/new">Host a Stay</a>
+          <a class="nav-link nav-host" href="listings/new">
+            <i class="fa-solid fa-plus" style="font-size:0.75rem"></i> Host a Stay
+          </a>
         </li>
-        <%if(!currUser){%>
+        <% if(!currUser) { %>
         <li class="nav-item">
-          <a class="nav-link"  href="/signup"><b>Sign up</b></a>
+          <a class="nav-link nav-btn" href="/signup">Sign up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login"><b>Log in</b></a>
+          <a class="nav-link" href="/login" style="font-weight:500">Log in</a>
         </li>
-        <%}%>
+        <% } %>
         <% if(currUser) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/logout"><b>Log out</b></a>
+          <a class="nav-link" href="/logout" style="font-weight:500">
+            <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:0.85rem"></i> Log out
+          </a>
         </li>
-        <%}%> 
+        <% } %>
       </ul>
-
     </div>
   </div>
 </nav>
