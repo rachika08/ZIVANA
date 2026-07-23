@@ -1,87 +1,136 @@
+
+
+
 <% layout('/layouts/boilerplate') -%>
 
-<div id="filters">
-  <div class="filter" title="Trending">
-    <i class="fa-solid fa-fire"></i>
-    <p>Trending</p>
+<% 
+  const activeCategory = typeof category !== 'undefined' ? category : 'trending';
+  const filters = [
+    { slug: "trending",      icon: "fa-solid fa-fire",            label: "Trending"      },
+    { slug: "rooms",         icon: "fa-solid fa-bed",             label: "Rooms"         },
+    { slug: "iconic-cities", icon: "fa-solid fa-mountain-city",   label: "Iconic Cities" },
+    { slug: "mountains",     icon: "fa-solid fa-mountain",        label: "Mountains"     },
+    { slug: "castles",       icon: "fa-brands fa-fort-awesome",   label: "Castles"       },
+    { slug: "amazing-pools", icon: "fa-solid fa-person-swimming", label: "Amazing Pools" },
+    { slug: "camping",       icon: "fa-solid fa-campground",      label: "Camping"       },
+    { slug: "farms",         icon: "fa-solid fa-cow",             label: "Farms"         },
+    { slug: "arctic",        icon: "fa-solid fa-snowflake",       label: "Arctic"        },
+    { slug: "tropical",      icon: "fa-solid fa-umbrella-beach",  label: "Tropical"      },
+    { slug: "cabins",        icon: "fa-solid fa-house-chimney",   label: "Cabins"        },
+    { slug: "lakeside",      icon: "fa-solid fa-water",           label: "Lakeside"      },
+  ];
+%>
+
+<!-- Filter bar -->
+<div class="filters-wrapper">
+  <button class="filter-arrow" id="filterLeft" aria-label="Scroll left">
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <div id="filters">
+    <% filters.forEach(f => { %>
+      <a href="/listings?category=<%= f.slug %>"
+         class="filter <%= activeCategory === f.slug ? 'active' : '' %>"
+         title="<%= f.label %>">
+        <i class="<%= f.icon %>"></i>
+        <p><%= f.label %></p>
+      </a>
+    <% }) %>
   </div>
-  <div class="filter" title="Rooms">
-    <i class="fa-solid fa-bed"></i>
-    <p>Rooms</p>
-  </div>
-  <div class="filter" title="Iconic Cities">
-    <i class="fa-solid fa-mountain-city"></i>
-    <p>Iconic Cities</p>
-  </div>
-  <div class="filter" title="Mountains">
-    <i class="fa-solid fa-mountain"></i>
-    <p>Mountains</p>
-  </div>
-  <div class="filter" title="Castles">
-    <i class="fa-brands fa-fort-awesome"></i>
-    <p>Castles</p>
-  </div>
-  <div class="filter" title="Amazing Pools">
-    <i class="fa-solid fa-person-swimming"></i>
-    <p>Amazing Pools</p>
-  </div>
-  <div class="filter" title="Camping">
-    <i class="fa-solid fa-campground"></i>
-    <p>Camping</p>
-  </div>
-  <div class="filter" title="Farms">
-    <i class="fa-solid fa-cow"></i>
-    <p>Farms</p>
-  </div>
-  <div class="filter" title="Arctic">
-    <i class="fa-solid fa-snowflake"></i>
-    <p>Arctic</p>
-  </div>
+
+  <button class="filter-arrow" id="filterRight" aria-label="Scroll right">
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
 
   <div class="tax-toggle">
     <div class="form-check-reverse form-switch mb-0">
       <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-      <label class="form-check-label" for="switchCheckDefault" style="font-size:0.8rem;font-weight:500;">Total after taxes</label>
+      <label class="form-check-label" for="switchCheckDefault"
+             style="font-size:0.8rem;font-weight:600;">Tax</label>
     </div>
   </div>
 </div>
 
-<div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 mt-2 g-3">
-  <% for(let listing of allListings) { %>
-    <div class="col">
-      <a href="/listings/<%= listing._id %>" class="listing-link">
-        <div class="listing-card">
-          <div class="card-img-wrapper">
-            <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
-            <div class="card-img-overlay-new"></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title-text"><%= listing.title %></div>
-            <div class="card-price">
-              <strong>&#8377;<%= listing.price ? listing.price.toLocaleString() : "N/A" %></strong> / night
-              <i class="tax-info">&nbsp;+18% GST</i>
+<!-- Results heading -->
+<% if (activeCategory !== 'trending' || (typeof search !== 'undefined' && search !== '')) { %>
+  <p class="results-label">
+    <% if (typeof search !== 'undefined' && search !== '') { %>
+      Results for "<strong><%= search %></strong>"
+      <% if (activeCategory !== 'trending') { %> in <strong><%= activeCategory %></strong><% } %>
+    <% } else { %>
+      Showing: <strong><%= activeCategory.replace(/-/g,' ') %></strong>
+    <% } %>
+    &nbsp;·&nbsp; <a href="/listings" class="clear-filter">Clear</a>
+  </p>
+<% } %>
+
+<!-- Listing Cards -->
+<% if (allListings.length === 0) { %>
+  <div class="no-results">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <p>No stays found. <a href="/listings">Browse all listings →</a></p>
+  </div>
+<% } else { %>
+  <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 mt-2 g-3">
+    <% for(let listing of allListings) { %>
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+          <div class="listing-card">
+            <div class="card-img-wrapper">
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+              <div class="card-img-overlay-new"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-title-text"><%= listing.title %></div>
+              <div class="card-price">
+                <strong>&#8377;<%= listing.price ? listing.price.toLocaleString() : "N/A" %></strong> / night
+                <i class="tax-info">&nbsp;+18% GST</i>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    </div>
-  <% } %>
-</div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+<% } %>
 
 <script>
-  let tagSwitch = document.getElementById("switchCheckDefault");
-  tagSwitch.addEventListener("click", () => {
-    let taxInfo = document.getElementsByClassName("tax-info");
-    for (let info of taxInfo) {
-      info.style.display = (info.style.display !== "inline") ? "inline" : "none";
-    }
-  });
-
-  // Filter active state (visual only)
-  document.querySelectorAll('.filter').forEach(f => {
-    f.addEventListener('click', () => {
-      document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
-      f.classList.add('active');
+  // Tax toggle
+  document.getElementById("switchCheckDefault").addEventListener("click", () => {
+    document.querySelectorAll(".tax-info").forEach(el => {
+      el.style.display = (el.style.display !== "inline") ? "inline" : "none";
     });
   });
+
+  // Arrow scroll
+  const filtersEl    = document.getElementById('filters');
+  const scrollAmount = 240;
+
+  document.getElementById('filterLeft').addEventListener('click', () => {
+    filtersEl.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  });
+  document.getElementById('filterRight').addEventListener('click', () => {
+    filtersEl.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  });
+
+  function updateArrows() {
+    const left  = document.getElementById('filterLeft');
+    const right = document.getElementById('filterRight');
+    const atStart = filtersEl.scrollLeft <= 10;
+    const atEnd   = filtersEl.scrollLeft + filtersEl.clientWidth >= filtersEl.scrollWidth - 10;
+    left.style.opacity       = atStart ? '0.3' : '1';
+    left.style.pointerEvents = atStart ? 'none' : 'auto';
+    right.style.opacity       = atEnd ? '0.3' : '1';
+    right.style.pointerEvents = atEnd ? 'none' : 'auto';
+  }
+
+  filtersEl.addEventListener('scroll', updateArrows);
+  updateArrows();
+
+  // Scroll active filter into view on page load
+  const activeFilter = document.querySelector('.filter.active');
+  if (activeFilter) {
+    activeFilter.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  }
 </script>
+

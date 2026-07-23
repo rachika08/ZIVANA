@@ -1,36 +1,88 @@
 <nav class="navbar navbar-expand-lg sticky-top">
-  <div class="container-fluid">
+  <div class="container-fluid px-3">
+
+    <!-- Brand -->
     <a class="navbar-brand" href="/listings">
       <i class="fa fa-compass" aria-hidden="true"></i>
       <span class="brand-text">Zivana</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- Explore link — left, always visible -->
+    <a class="nav-link nav-explore d-none d-lg-flex" href="/listings">Explore</a>
+
+    <!-- Hamburger (mobile only) -->
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Collapsible section -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
+
+      <!-- Mobile: Explore link inside collapse -->
+      <ul class="navbar-nav d-lg-none mb-2">
         <li class="nav-item">
           <a class="nav-link" href="/listings">Explore</a>
         </li>
       </ul>
+
+      <!-- Mobile: inline search inside collapse -->
+      <form class="d-flex d-lg-none search-form w-100 mb-2" role="search" action="/listings" method="GET">
+        <input class="form-control search-input me-2" type="search" name="search"
+          placeholder="Search destinations..."
+          value="<%= typeof search !== 'undefined' ? search : '' %>"
+          aria-label="Search">
+        <button class="btn search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+
+      <!-- Spacer pushes right-side items to the right on desktop -->
+      <div class="d-none d-lg-block ms-auto"></div>
+
+      <!-- Right side nav -->
       <ul class="navbar-nav align-items-center gap-2">
+
+        <!-- Desktop: search icon button — expands inline on click -->
+        <li class="nav-item d-none d-lg-flex align-items-center" id="searchToggleWrap">
+          <!-- Icon trigger -->
+          <button class="nav-search-icon-btn" id="searchToggleBtn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <!-- Expandable search bar (hidden by default) -->
+          <form class="search-expand-form" id="searchExpandForm" role="search" action="/listings" method="GET">
+            <input class="form-control search-input" type="search" name="search"
+              id="searchExpandInput"
+              placeholder="Search destinations..."
+              value="<%= typeof search !== 'undefined' ? search : '' %>"
+              aria-label="Search">
+            <button class="btn search-btn" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button type="button" class="search-close-btn" id="searchCloseBtn" aria-label="Close search">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </form>
+        </li>
+
         <li class="nav-item">
-          <a class="nav-link nav-host" href="listings/new">
+          <a class="nav-link nav-host" href="/listings/new">
             <i class="fa-solid fa-plus" style="font-size:0.75rem"></i> Host a Stay
           </a>
         </li>
+
         <% if(!currUser) { %>
         <li class="nav-item">
           <a class="nav-link nav-btn" href="/signup">Sign up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/login" style="font-weight:500">Log in</a>
+          <a class="nav-link" href="/login" style="font-weight:600">Log in</a>
         </li>
         <% } %>
         <% if(currUser) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/logout" style="font-weight:500">
+          <a class="nav-link" href="/logout" style="font-weight:600">
             <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:0.85rem"></i> Log out
           </a>
         </li>
@@ -39,3 +91,39 @@
     </div>
   </div>
 </nav>
+
+<script>
+  (function () {
+    const toggleBtn  = document.getElementById('searchToggleBtn');
+    const closeBtn   = document.getElementById('searchCloseBtn');
+    const expandForm = document.getElementById('searchExpandForm');
+    const input      = document.getElementById('searchExpandInput');
+
+    if (!toggleBtn) return;
+
+    function openSearch() {
+      expandForm.classList.add('open');
+      toggleBtn.style.display = 'none';
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closeSearch() {
+      expandForm.classList.remove('open');
+      toggleBtn.style.display = '';
+    }
+
+    toggleBtn.addEventListener('click', openSearch);
+    closeBtn.addEventListener('click', closeSearch);
+
+    // Close on Escape key
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSearch();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('searchToggleWrap');
+      if (wrap && !wrap.contains(e.target)) closeSearch();
+    });
+  })();
+</script>

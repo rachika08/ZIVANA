@@ -1,4 +1,3 @@
-
 <% layout('/layouts/boilerplate') -%>
 
 <div class="form-page">
@@ -44,6 +43,26 @@
         <label for="location" class="form-label">Location</label>
         <input type="text" name="listing[location]" placeholder="Jaipur, Rajasthan" class="form-control" required>
         <div class="invalid-feedback">Please enter a location.</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" class="form-control" required>
+          <option value="">— Select a category —</option>
+          <option value="trending">🔥 Trending</option>
+          <option value="rooms">🛏 Rooms</option>
+          <option value="iconic-cities">🏙 Iconic Cities</option>
+          <option value="mountains">⛰ Mountains</option>
+          <option value="castles">🏰 Castles</option>
+          <option value="amazing-pools">🏊 Amazing Pools</option>
+          <option value="camping">⛺ Camping</option>
+          <option value="farms">🐄 Farms</option>
+          <option value="arctic">❄️ Arctic</option>
+          <option value="tropical">🏖 Tropical</option>
+          <option value="cabins">🏡 Cabins</option>
+          <option value="lakeside">🌊 Lakeside</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
       </div>
 
       <button type="submit" class="btn-primary-zivana">

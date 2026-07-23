@@ -1,10 +1,65 @@
 const Listing=require("../models/listing.js");
 const axios = require("axios");
 
-module.exports.index=async (req,res)=>{
-    let allListings=await Listing.find();
-    res.render("listings/index.ejs",{allListings})
-}
+module.exports.index=async (req, res) => {
+    const { category, search } = req.query;
+
+    let filter = {};
+
+    // Category filter
+    if (category && category !== "trending") {
+        filter.category = category;
+    }
+
+    // Search filter (title, location, country — case-insensitive)
+    if (search && search.trim() !== "") {
+        const regex = new RegExp(search.trim(), "i");
+        filter.$or = [
+            { title:    regex },
+            { location: regex },
+            { country:  regex },
+        ];
+    }
+
+    const allListings = await Listing.find(filter);
+    res.render("listings/index", {
+        allListings,
+        category: category || "trending",
+        search:   search   || "",
+    });
+};
+
+
+
+
+
+// async (req, res) => {
+//     const { search } = req.query;
+
+//     let query = {};
+
+//     if (search && search.trim() !== "") {
+//         query = {
+//             title: {
+//                 $regex: search,
+//                 $options: "i",
+//             },
+//         };
+//     }
+
+//     const allListings = await Listing.find(query);
+
+//     res.render("listings/index", {
+//         allListings,
+//         search,
+//     });
+// }
+
+
+// async (req,res)=>{
+//     let allListings=await Listing.find();
+//     res.render("listings/index.ejs",{allListings})
+// }
 
 module.exports.renderNewForm=async (req,res)=>{
   
