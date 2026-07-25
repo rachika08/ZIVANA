@@ -97,12 +97,13 @@ async function main(){
 }
 
 
-// app.get("/test", (req, res) => {
-//     console.log(req.session);
-//     console.log(req.sessionID);
+app.get("/test", (req, res) => {
+    
+    console.log(req.session);
+    console.log(req.sessionID);
 
-//     res.send("Done");
-// });
+    res.send("Done");
+});
 
 // error handling
 app.all(/.*/,(req,res,next)=>{

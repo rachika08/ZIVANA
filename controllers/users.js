@@ -30,6 +30,8 @@ module.exports.renderLoginForm=(req,res)=>{
 }
 
 module.exports.login=async(req,res)=>{
+    console.log("req.user =", req.user);
+console.log("req.session.passport.user =", req.session.passport.user);
     req.flash("success","Welcome to ZIVANA!");
     let redirectUrl=res.locals.redirectUrl || "/listings";
     delete req.session.redirectUrl;
