@@ -1,0 +1,492 @@
+/* ─────────────────────────────────────────────
+   ZIVANA — Landing Page
+   Self-contained: repeats the core design tokens
+   from the site-wide stylesheet so this file works
+   even if that stylesheet isn't loaded on this page.
+   ───────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --cream:      #FAF7F2;
+  --warm-white: #FFFDF9;
+  --sand:       #EDE8DF;
+  --tan:        #D4C9B8;
+  --brown:      #8B6F47;
+  --deep:       #2C2416;
+  --accent:     #C84B31;
+  --accent-dim: #A03B23;
+  --green:      #3D6B4F;
+  --gold:       #C9973B;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  --radius-sm:  6px;
+  --radius-md:  14px;
+  --radius-lg:  22px;
+  --radius-xl:  32px;
+
+  --shadow-card: 0 2px 12px rgba(44,36,22,.08), 0 8px 32px rgba(44,36,22,.06);
+  --shadow-hover: 0 8px 32px rgba(44,36,22,.16), 0 2px 8px rgba(44,36,22,.08);
+  --shadow-modal: 0 24px 80px rgba(44,36,22,.22);
+
+  --transition: 0.28s cubic-bezier(.4,0,.2,1);
+}
+
+/* ══════════════════════════════════════════════
+   HERO
+   Signature move: the headline's last word sits in
+   italic serif over a torn-paper-style clipped photo
+   edge, with a single floating stat card anchoring
+   the bottom-left corner — like a postcard tucked
+   into a travel journal.
+══════════════════════════════════════════════ */
+.landing-hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 1.5rem 5rem;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(44,36,22,.55) 0%, rgba(44,36,22,.30) 45%, rgba(44,36,22,.72) 100%),
+    url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1974&auto=format&fit=crop') center/cover no-repeat;
+}
+
+.landing-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at bottom left, rgba(44,36,22,.35), transparent 60%);
+  pointer-events: none;
+}
+
+.landing-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.landing-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-bottom: 1.25rem;
+}
+
+.landing-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1.5px;
+  background: var(--gold);
+  display: inline-block;
+}
+
+.landing-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--warm-white);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25rem;
+}
+
+.landing-hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.landing-hero p {
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  font-weight: 400;
+  color: rgba(250,247,242,.88);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 2.25rem;
+}
+
+.landing-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-landing-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--cream);
+  color: var(--deep);
+  border-radius: var(--radius-xl);
+  padding: 0.85rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-landing-primary:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(200,75,49,.35);
+}
+
+.btn-landing-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--warm-white);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  padding: 0.85rem 0.25rem;
+  border-bottom: 1.5px solid rgba(250,247,242,.4);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.btn-landing-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Floating stat card on the hero */
+.hero-float-card {
+  position: absolute;
+  right: clamp(1rem, 6vw, 5rem);
+  bottom: clamp(1.5rem, 5vw, 3.5rem);
+  z-index: 3;
+  background: var(--warm-white);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.6rem;
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.hero-float-card .stars {
+  color: var(--gold);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+}
+
+.hero-float-card strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--deep);
+  line-height: 1;
+}
+
+.hero-float-card span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  color: var(--brown);
+  margin-top: 0.2rem;
+}
+
+/* ══════════════════════════════════════════════
+   ABOUT — asymmetric split with a large drop quote
+══════════════════════════════════════════════ */
+.landing-about {
+  background: var(--cream);
+  padding: 5.5rem 1.5rem;
+}
+
+.about-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.3fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.about-mark {
+  font-family: var(--font-display);
+  font-size: 6.5rem;
+  line-height: 0.7;
+  color: var(--tan);
+  font-style: italic;
+}
+
+.about-grid h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  color: var(--deep);
+  margin-top: 0.75rem;
+  line-height: 1.2;
+}
+
+.landing-about p {
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  color: var(--deep);
+  opacity: 0.85;
+  line-height: 1.85;
+  max-width: 560px;
+}
+
+.landing-about p + p {
+  margin-top: 1rem;
+}
+
+/* ══════════════════════════════════════════════
+   FEATURES
+══════════════════════════════════════════════ */
+.landing-features {
+  background: var(--warm-white);
+  padding: 5rem 1.5rem 5.5rem;
+  border-top: 1px solid var(--sand);
+  border-bottom: 1px solid var(--sand);
+}
+
+.features-head {
+  max-width: 1100px;
+  margin: 0 auto 2.75rem;
+  text-align: center;
+}
+
+.features-head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  color: var(--deep);
+}
+
+.features-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--cream);
+  border: 1.5px solid var(--sand);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: left;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--tan);
+}
+
+.feature-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 1.1rem;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--deep);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--deep);
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════
+   STATS — quiet, rule-separated, not boxed
+══════════════════════════════════════════════ */
+.landing-stats {
+  background: var(--cream);
+  padding: 4.5rem 1.5rem;
+}
+
+.stats-row {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 1rem 1rem;
+  border-left: 1px solid var(--sand);
+}
+
+.stat-item:first-child { border-left: none; }
+
+.stat-item h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 4vw, 2.6rem);
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.stat-item p {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+/* ══════════════════════════════════════════════
+   CTA BAND
+══════════════════════════════════════════════ */
+.landing-cta {
+  background: var(--deep);
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.landing-cta h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  color: var(--warm-white);
+  max-width: 640px;
+  margin: 0 auto 0.75rem;
+  line-height: 1.2;
+}
+
+.landing-cta h2 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.landing-cta > p {
+  font-family: var(--font-body);
+  color: rgba(250,247,242,.7);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.landing-cta .btn-landing-primary:hover {
+  box-shadow: 0 10px 28px rgba(200,75,49,.45);
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 991.98px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about-mark { font-size: 4.5rem; }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-hero {
+    min-height: auto; /* Let content dictate height cleanly on mobile */
+    padding: 5rem 1.25rem 3.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .landing-hero-inner {
+    max-width: 100%;
+  }
+
+  .hero-float-card {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 2.5rem;
+    width: 100%;
+    max-width: 320px; /* Keeps the card looking clean and proportionate */
+    box-sizing: border-box;
+  }
+
+  .landing-about,
+  .landing-features,
+  .landing-stats,
+  .landing-cta {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .stats-row {
+    justify-content: center;
+  }
+
+  .stat-item {
+    flex: 1 1 45%;
+    border-left: none;
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    flex: 1 1 100%;
+    border-left: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .stat-item:last-child { border-bottom: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .btn-landing-primary,
+  .btn-landing-ghost {
+    transition: none;
+  }
+}

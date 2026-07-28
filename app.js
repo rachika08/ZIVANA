@@ -81,7 +81,9 @@ app.use((req,res,next)=>{
 })
 
 
-
+app.use("/landing",async(req,res)=>{
+    res.render("landing.ejs");
+})
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);

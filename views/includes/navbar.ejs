@@ -2,7 +2,7 @@
   <div class="container-fluid px-3">
 
     <!-- Brand -->
-    <a class="navbar-brand" href="/listings">
+    <a class="navbar-brand" href="/landing">
       <i class="fa fa-compass" aria-hidden="true"></i>
       <span class="brand-text">Zivana</span>
     </a>
@@ -28,7 +28,7 @@
       </ul>
 
       <!-- Mobile: inline search inside collapse -->
-      <form class="d-flex d-lg-none search-form w-100 mb-2" role="search" action="/listings" method="GET">
+      <!-- <form class="d-flex d-lg-none search-form w-100 mb-2" role="search" action="/listings" method="GET">
         <input class="form-control search-input me-2" type="search" name="search"
           placeholder="Search destinations..."
           value="<%= typeof search !== 'undefined' ? search : '' %>"
@@ -36,7 +36,18 @@
         <button class="btn search-btn" type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-      </form>
+      </form> -->
+      <!-- Mobile: inline search inside collapse -->
+<form class="d-flex d-lg-none search-form w-100 mb-2 gap-2" role="search" action="/listings" method="GET">
+  <input class="form-control search-input" type="search" name="search"
+    placeholder="Search destinations..."
+    value="<%= typeof search !== 'undefined' ? search : '' %>"
+    aria-label="Search">
+  <button class="btn search-btn mobile-search-btn" type="submit">
+    <i class="fa-solid fa-magnifying-glass me-1"></i>
+    <span>Search</span>
+  </button>
+</form>
 
       <!-- Spacer pushes right-side items to the right on desktop -->
       <div class="d-none d-lg-block ms-auto"></div>
