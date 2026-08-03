@@ -1,9 +1,4 @@
-/* ─────────────────────────────────────────────
-   ZIVANA — Landing Page
-   Self-contained: repeats the core design tokens
-   from the site-wide stylesheet so this file works
-   even if that stylesheet isn't loaded on this page.
-   ───────────────────────────────────────────── */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
@@ -36,11 +31,7 @@
 
 /* ══════════════════════════════════════════════
    HERO
-   Signature move: the headline's last word sits in
-   italic serif over a torn-paper-style clipped photo
-   edge, with a single floating stat card anchoring
-   the bottom-left corner — like a postcard tucked
-   into a travel journal.
+
 ══════════════════════════════════════════════ */
 .landing-hero {
   position: relative;

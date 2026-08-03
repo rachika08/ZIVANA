@@ -18,7 +18,7 @@ const listingSchema = new Schema({
     location: String,
     country: String,
 
-    // ── NEW: category field ──────────────────────
+
     category: {
         type: String,
         enum: [
@@ -28,7 +28,7 @@ const listingSchema = new Schema({
         ],
         default: "trending"
     },
-    // ─────────────────────────────────────────────
+
 
     geometry: {
         type: {

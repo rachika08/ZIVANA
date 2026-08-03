@@ -26,25 +26,7 @@
         </li>
       </ul>
 
-      <!-- Mobile: inline search inside collapse -->
-      <!-- <form class="d-flex d-lg-none search-form w-100 mb-2" role="search" action="/listings" method="GET">
-        <input class="form-control search-input me-2" type="search" name="search"
-          placeholder="Search destinations..."
-          value="<%= typeof search !== 'undefined' ? search : '' %>"
-          aria-label="Search">
-        <button class="btn search-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form> -->
-      <!-- Mobile: inline search inside collapse -->
-      <!-- <form class="d-flex d-lg-none search-form w-100 mb-2 gap-2" role="search" action="/listings" method="GET">
-        <input class="form-control search-input" type="search" name="search" placeholder="Search destinations..."
-          value="<%= typeof search !== 'undefined' ? search : '' %>" aria-label="Search">
-        <button class="btn search-btn mobile-search-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass me-1"></i>
-          <span>Search</span>
-        </button>
-      </form> -->
+      
       <!-- Mobile: Search Icon Toggle & Expandable Search Bar -->
       <div class="d-lg-none my-2 w-100" id="mobileSearchToggleWrap">
         <!-- Mobile Search Icon Button -->
@@ -171,38 +153,3 @@
   })();
 </script>
 
-<!-- <script>
-  (function () {
-    const toggleBtn = document.getElementById('searchToggleBtn');
-    const closeBtn = document.getElementById('searchCloseBtn');
-    const expandForm = document.getElementById('searchExpandForm');
-    const input = document.getElementById('searchExpandInput');
-
-    if (!toggleBtn) return;
-
-    function openSearch() {
-      expandForm.classList.add('open');
-      toggleBtn.style.display = 'none';
-      setTimeout(() => input.focus(), 50);
-    }
-
-    function closeSearch() {
-      expandForm.classList.remove('open');
-      toggleBtn.style.display = '';
-    }
-
-    toggleBtn.addEventListener('click', openSearch);
-    closeBtn.addEventListener('click', closeSearch);
-
-    // Close on Escape key
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeSearch();
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      const wrap = document.getElementById('searchToggleWrap');
-      if (wrap && !wrap.contains(e.target)) closeSearch();
-    });
-  })();
-</script> -->

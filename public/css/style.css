@@ -258,26 +258,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Desktop: icon button that reveals search bar */
 
-/* .nav-search-icon-btn {
-  background: none;
-  border: none;
-  color: var(--deep);
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 0.4rem 0.6rem;
-  border-radius: 50%;
-  transition: color var(--transition), background var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-} */
 
-/* .nav-search-icon-btn:hover {
-  color: var(--accent);
-  background: rgba(200,75,49,.08);
-} */
  .nav-search-icon-btn {
   background: transparent;
   border: 1px solid var(--sand);
@@ -302,25 +283,11 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.5rem;
   width: 100%;
 }
-/* .search-expand-form {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-width 0.4s cubic-bezier(.4,0,.2,1),
-              opacity   0.3s ease;
-  pointer-events: none;
-} */
+
 .search-expand-form.open {
   display: flex !important;
 }
-/* .search-expand-form.open {
-  max-width: 340px;
-  opacity: 1;
-  pointer-events: all;
-} */
+
 
 .search-input {
   background: var(--cream) !important;
