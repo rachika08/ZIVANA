@@ -11,9 +11,8 @@
     <a class="nav-link nav-explore d-none d-lg-flex" href="/listings">Explore</a>
 
     <!-- Hamburger (mobile only) -->
-    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarNav" aria-controls="navbarNav"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -38,16 +37,36 @@
         </button>
       </form> -->
       <!-- Mobile: inline search inside collapse -->
-<form class="d-flex d-lg-none search-form w-100 mb-2 gap-2" role="search" action="/listings" method="GET">
-  <input class="form-control search-input" type="search" name="search"
-    placeholder="Search destinations..."
-    value="<%= typeof search !== 'undefined' ? search : '' %>"
-    aria-label="Search">
-  <button class="btn search-btn mobile-search-btn" type="submit">
-    <i class="fa-solid fa-magnifying-glass me-1"></i>
-    <span>Search</span>
-  </button>
-</form>
+      <!-- <form class="d-flex d-lg-none search-form w-100 mb-2 gap-2" role="search" action="/listings" method="GET">
+        <input class="form-control search-input" type="search" name="search" placeholder="Search destinations..."
+          value="<%= typeof search !== 'undefined' ? search : '' %>" aria-label="Search">
+        <button class="btn search-btn mobile-search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass me-1"></i>
+          <span>Search</span>
+        </button>
+      </form> -->
+      <!-- Mobile: Search Icon Toggle & Expandable Search Bar -->
+      <div class="d-lg-none my-2 w-100" id="mobileSearchToggleWrap">
+        <!-- Mobile Search Icon Button -->
+        <button class="nav-search-icon-btn w-50 justify-content-start" id="mobileSearchToggleBtn" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass me-2"></i>
+          <span style="font-size: 0.9rem; color: var(--tan);">Search </span>
+        </button>
+
+        <!-- Mobile Expandable Form (Hidden by default) -->
+        <form class="search-expand-form mobile-search-form" id="mobileSearchExpandForm" role="search" action="/listings"
+          method="GET">
+          <input class="form-control search-input" type="search" name="search" id="mobileSearchExpandInput"
+            placeholder="Search destinations..." value="<%= typeof search !== 'undefined' ? search : '' %>"
+            aria-label="Search">
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button type="button" class="search-close-btn" id="mobileSearchCloseBtn" aria-label="Close search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </form>
+      </div>
 
       <!-- Spacer pushes right-side items to the right on desktop -->
       <div class="d-none d-lg-block ms-auto"></div>
@@ -63,10 +82,8 @@
           </button>
           <!-- Expandable search bar (hidden by default) -->
           <form class="search-expand-form" id="searchExpandForm" role="search" action="/listings" method="GET">
-            <input class="form-control search-input" type="search" name="search"
-              id="searchExpandInput"
-              placeholder="Search destinations..."
-              value="<%= typeof search !== 'undefined' ? search : '' %>"
+            <input class="form-control search-input" type="search" name="search" id="searchExpandInput"
+              placeholder="Search destinations..." value="<%= typeof search !== 'undefined' ? search : '' %>"
               aria-label="Search">
             <button class="btn search-btn" type="submit">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -84,31 +101,82 @@
         </li>
 
         <% if(!currUser) { %>
-        <li class="nav-item">
-          <a class="nav-link nav-btn" href="/signup">Sign up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login" style="font-weight:600">Log in</a>
-        </li>
-        <% } %>
-        <% if(currUser) { %>
-        <li class="nav-item">
-          <a class="nav-link" href="/logout" style="font-weight:600">
-            <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:0.85rem"></i> Log out
-          </a>
-        </li>
-        <% } %>
+          <li class="nav-item">
+            <a class="nav-link nav-btn" href="/signup">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login" style="font-weight:600">Log in</a>
+          </li>
+          <% } %>
+            <% if(currUser) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout" style="font-weight:600">
+                  <i class="fa-solid fa-arrow-right-from-bracket" style="font-size:0.85rem"></i> Log out
+                </a>
+              </li>
+              <% } %>
       </ul>
     </div>
   </div>
 </nav>
 
+
 <script>
   (function () {
-    const toggleBtn  = document.getElementById('searchToggleBtn');
-    const closeBtn   = document.getElementById('searchCloseBtn');
+    // --- Generic Toggle Setup Function ---
+    function setupSearchToggle(toggleId, formId, inputId, closeId) {
+      const toggleBtn  = document.getElementById(toggleId);
+      const expandForm = document.getElementById(formId);
+      const input      = document.getElementById(inputId);
+      const closeBtn   = document.getElementById(closeId);
+
+      if (!toggleBtn || !expandForm || !input || !closeBtn) return;
+
+      function openSearch() {
+        expandForm.classList.add('open');
+        toggleBtn.style.display = 'none';
+        setTimeout(() => input.focus(), 50);
+      }
+
+      function closeSearch() {
+        expandForm.classList.remove('open');
+        toggleBtn.style.display = '';
+      }
+
+      toggleBtn.addEventListener('click', openSearch);
+      closeBtn.addEventListener('click', closeSearch);
+
+      // Close on Escape key
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSearch();
+      });
+    }
+
+    // Initialize Desktop Search
+    setupSearchToggle('searchToggleBtn', 'searchExpandForm', 'searchExpandInput', 'searchCloseBtn');
+
+    // Initialize Mobile Search
+    setupSearchToggle('mobileSearchToggleBtn', 'mobileSearchExpandForm', 'mobileSearchExpandInput', 'mobileSearchCloseBtn');
+
+    // Close desktop search when clicking outside
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('searchToggleWrap');
+      const expandForm = document.getElementById('searchExpandForm');
+      const toggleBtn  = document.getElementById('searchToggleBtn');
+      if (wrap && !wrap.contains(e.target) && expandForm) {
+        expandForm.classList.remove('open');
+        if (toggleBtn) toggleBtn.style.display = '';
+      }
+    });
+  })();
+</script>
+
+<!-- <script>
+  (function () {
+    const toggleBtn = document.getElementById('searchToggleBtn');
+    const closeBtn = document.getElementById('searchCloseBtn');
     const expandForm = document.getElementById('searchExpandForm');
-    const input      = document.getElementById('searchExpandInput');
+    const input = document.getElementById('searchExpandInput');
 
     if (!toggleBtn) return;
 
@@ -137,4 +205,4 @@
       if (wrap && !wrap.contains(e.target)) closeSearch();
     });
   })();
-</script>
+</script> -->

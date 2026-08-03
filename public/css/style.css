@@ -257,7 +257,8 @@ h1, h2, h3, h4, h5, h6 {
 ══════════════════════════════════════════════ */
 
 /* Desktop: icon button that reveals search bar */
-.nav-search-icon-btn {
+
+/* .nav-search-icon-btn {
   background: none;
   border: none;
   color: var(--deep);
@@ -271,15 +272,37 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   width: 36px;
   height: 36px;
+} */
+
+/* .nav-search-icon-btn:hover {
+  color: var(--accent);
+  background: rgba(200,75,49,.08);
+} */
+ .nav-search-icon-btn {
+  background: transparent;
+  border: 1px solid var(--sand);
+  border-radius: var(--radius-xl, 20px);
+  padding: 0.5rem 1rem;
+  color: var(--deep);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-search-icon-btn:hover {
-  color: var(--accent);
-  background: rgba(200,75,49,.08);
+  background: rgba(200, 75, 49, 0.06);
+  border-color: var(--tan);
 }
 
 /* The expanding form — hidden by default */
 .search-expand-form {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+/* .search-expand-form {
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -289,13 +312,15 @@ h1, h2, h3, h4, h5, h6 {
   transition: max-width 0.4s cubic-bezier(.4,0,.2,1),
               opacity   0.3s ease;
   pointer-events: none;
-}
-
+} */
 .search-expand-form.open {
+  display: flex !important;
+}
+/* .search-expand-form.open {
   max-width: 340px;
   opacity: 1;
   pointer-events: all;
-}
+} */
 
 .search-input {
   background: var(--cream) !important;
@@ -366,6 +391,26 @@ h1, h2, h3, h4, h5, h6 {
 .nav-explore:hover {
   color: var(--accent) !important;
   background: rgba(200,75,49,.06);
+}
+
+/* Styles dedicated to the mobile expanded state */
+.mobile-search-form {
+  position: relative;
+  width: 100%;
+}
+
+.mobile-search-form .search-input {
+  flex: 1;
+  border-radius: var(--radius-xl, 20px);
+}
+
+.mobile-search-form .search-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--deep);
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
 }
 
 /* ══════════════════════════════════════════════
