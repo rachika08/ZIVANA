@@ -1,5 +1,3 @@
-
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 :root {
@@ -30,6 +28,72 @@
 }
 
 /* ══════════════════════════════════════════════
+   SIGNATURE ELEMENT — the Wayfarer's Stamp
+   A postmark motif that recurs through the page:
+   every stay leaves a mark on the map.
+══════════════════════════════════════════════ */
+.wayfarer-stamp {
+  --stamp-ink: var(--brown);
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--stamp-ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  transform: rotate(-9deg);
+  flex-shrink: 0;
+  position: relative;
+  background: var(--warm-white);
+}
+
+.wayfarer-stamp::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--stamp-ink);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.wayfarer-stamp .stamp-mark {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.wayfarer-stamp .stamp-line {
+  font-family: var(--font-body);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stamp-ink);
+  text-align: center;
+  line-height: 1.3;
+}
+
+.wayfarer-stamp--ghost {
+  --stamp-ink: rgba(250,247,242,.55);
+  background: transparent;
+}
+.wayfarer-stamp--ghost .stamp-mark { color: var(--gold); }
+.wayfarer-stamp--ghost .stamp-line { color: rgba(250,247,242,.75); }
+
+.wayfarer-stamp--corner {
+  position: absolute;
+  top: clamp(1.25rem, 5vw, 3rem);
+  right: clamp(1.25rem, 6vw, 4rem);
+  z-index: 3;
+  width: 84px;
+  height: 84px;
+}
+
+/* ══════════════════════════════════════════════
    HERO
 
 ══════════════════════════════════════════════ */
@@ -42,8 +106,9 @@
   overflow: hidden;
   background:
     linear-gradient(180deg, rgba(44,36,22,.55) 0%, rgba(44,36,22,.30) 45%, rgba(44,36,22,.72) 100%),
-    url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1974&auto=format&fit=crop') center/cover no-repeat;
-}
+    url('https://images.unsplash.com/photo-1762254923872-5bdc4210eb90?q=80&w=2400&auto=format&fit=crop') center/cover no-repeat;
+
+  }
 
 .landing-hero::after {
   content: "";
@@ -51,6 +116,29 @@
   inset: 0;
   background: radial-gradient(ellipse at bottom left, rgba(44,36,22,.35), transparent 60%);
   pointer-events: none;
+}
+
+/* dotted flight-route, purely decorative */
+.hero-route {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.hero-route path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-dasharray: 1 9;
+  stroke-linecap: round;
+}
+
+.hero-route circle {
+  fill: var(--gold);
 }
 
 .landing-hero-inner {
@@ -139,6 +227,12 @@
   box-shadow: 0 10px 28px rgba(200,75,49,.35);
 }
 
+.btn-landing-primary:focus-visible,
+.btn-landing-ghost:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
 .btn-landing-ghost {
   display: inline-flex;
   align-items: center;
@@ -197,37 +291,34 @@
 }
 
 /* ══════════════════════════════════════════════
-   ABOUT — asymmetric split with a large drop quote
+   ABOUT — stamp + copy on the left, photo collage
+   on the right
 ══════════════════════════════════════════════ */
 .landing-about {
   background: var(--cream);
-  padding: 5.5rem 1.5rem;
+  padding: 6rem 1.5rem;
 }
 
 .about-grid {
-  max-width: 1100px;
+  max-width: 1120px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 0.9fr 1.3fr;
-  gap: 3.5rem;
-  align-items: start;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 4rem;
+  align-items: center;
 }
 
-.about-mark {
-  font-family: var(--font-display);
-  font-size: 6.5rem;
-  line-height: 0.7;
-  color: var(--tan);
-  font-style: italic;
+.about-copy .wayfarer-stamp {
+  margin-bottom: 1.75rem;
 }
 
 .about-grid h2 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
   color: var(--deep);
-  margin-top: 0.75rem;
   line-height: 1.2;
+  margin-bottom: 1.1rem;
 }
 
 .landing-about p {
@@ -236,11 +327,56 @@
   color: var(--deep);
   opacity: 0.85;
   line-height: 1.85;
-  max-width: 560px;
+  max-width: 480px;
 }
 
 .landing-about p + p {
   margin-top: 1rem;
+}
+
+.about-collage {
+  position: relative;
+  height: 380px;
+}
+
+.about-collage img {
+  position: absolute;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.about-collage .collage-main {
+  width: 78%;
+  height: 320px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.about-collage .collage-accent {
+  width: 55%;
+  height: 200px;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  border: 6px solid var(--warm-white);
+}
+
+.collage-tag {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 3;
+  background: var(--deep);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  transform: rotate(-2deg);
 }
 
 /* ══════════════════════════════════════════════
@@ -248,7 +384,7 @@
 ══════════════════════════════════════════════ */
 .landing-features {
   background: var(--warm-white);
-  padding: 5rem 1.5rem 5.5rem;
+  padding: 5.5rem 1.5rem 5.5rem;
   border-top: 1px solid var(--sand);
   border-bottom: 1px solid var(--sand);
 }
@@ -257,6 +393,15 @@
   max-width: 1100px;
   margin: 0 auto 2.75rem;
   text-align: center;
+}
+
+.features-head .landing-eyebrow {
+  color: var(--brown);
+  justify-content: center;
+}
+
+.features-head .landing-eyebrow::before {
+  background: var(--accent);
 }
 
 .features-head h2 {
@@ -275,6 +420,7 @@
 }
 
 .feature-card {
+  position: relative;
   background: var(--cream);
   border: 1.5px solid var(--sand);
   border-radius: var(--radius-lg);
@@ -284,9 +430,25 @@
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) rotate(-0.4deg);
   box-shadow: var(--shadow-hover);
   border-color: var(--tan);
+}
+
+.feature-tag {
+  position: absolute;
+  top: -0.6rem;
+  right: 1.25rem;
+  background: var(--deep);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  transform: rotate(3deg);
 }
 
 .feature-icon {
@@ -319,11 +481,24 @@
 }
 
 /* ══════════════════════════════════════════════
-   STATS — quiet, rule-separated, not boxed
+   STATS — a boarding-pass strip
 ══════════════════════════════════════════════ */
 .landing-stats {
   background: var(--cream);
   padding: 4.5rem 1.5rem;
+}
+
+.stats-label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brown);
+  opacity: 0.7;
+  margin-bottom: 2rem;
 }
 
 .stats-row {
@@ -332,6 +507,9 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  border-top: 1px dashed var(--tan);
+  border-bottom: 1px dashed var(--tan);
+  padding: 0.5rem 0;
 }
 
 .stat-item {
@@ -339,9 +517,25 @@
   text-align: center;
   padding: 1rem 1rem;
   border-left: 1px solid var(--sand);
+  position: relative;
 }
 
 .stat-item:first-child { border-left: none; }
+
+/* punch-hole notches, like a ticket perforation */
+.stat-item:not(:first-child)::before,
+.stat-item:not(:first-child)::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 1px solid var(--sand);
+}
+.stat-item:not(:first-child)::before { top: -5px; }
+.stat-item:not(:first-child)::after { bottom: -5px; }
 
 .stat-item h3 {
   font-family: var(--font-display);
@@ -364,9 +558,15 @@
    CTA BAND
 ══════════════════════════════════════════════ */
 .landing-cta {
+  position: relative;
   background: var(--deep);
-  padding: 5rem 1.5rem;
+  padding: 5.5rem 1.5rem;
   text-align: center;
+  overflow: hidden;
+}
+
+.landing-cta .wayfarer-stamp {
+  margin: 0 auto 1.5rem;
 }
 
 .landing-cta h2 {
@@ -396,24 +596,52 @@
 }
 
 /* ══════════════════════════════════════════════
+   FULL-BLEED — break landing sections out of the
+   Bootstrap .container they're nested in
+══════════════════════════════════════════════ */
+html, body {
+  overflow-x: hidden;
+}
+
+.landing-hero,
+.landing-about,
+.landing-features,
+.landing-stats,
+.landing-cta {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* ══════════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════════ */
 @media (max-width: 991.98px) {
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 2.5rem;
   }
 
-  .about-mark { font-size: 4.5rem; }
+  .about-collage {
+    height: 300px;
+    order: -1;
+  }
 
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wayfarer-stamp--corner {
+    display: none;
   }
 }
 
 @media (max-width: 768px) {
   .landing-hero {
-    min-height: auto; /* Let content dictate height cleanly on mobile */
+    min-height: auto;
     padding: 5rem 1.25rem 3.5rem;
     flex-direction: column;
     justify-content: center;
@@ -430,7 +658,7 @@
     bottom: auto;
     margin-top: 2.5rem;
     width: 100%;
-    max-width: 320px; /* Keeps the card looking clean and proportionate */
+    max-width: 320px;
     box-sizing: border-box;
   }
 
@@ -450,6 +678,11 @@
     flex: 1 1 45%;
     border-left: none;
     padding: 1rem 0.5rem;
+  }
+
+  .stat-item:not(:first-child)::before,
+  .stat-item:not(:first-child)::after {
+    display: none;
   }
 }
 

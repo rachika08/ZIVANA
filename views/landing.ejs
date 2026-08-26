@@ -1,9 +1,18 @@
 <% layout('/layouts/boilerplate') -%>
 
-
-
 <!-- Hero -->
 <section class="landing-hero">
+    <svg class="hero-route" viewBox="0 0 800 500" aria-hidden="true">
+        <path d="M60,420 C220,300 300,150 460,110 S650,60 740,40" />
+        <circle cx="60" cy="420" r="4" />
+        <circle cx="740" cy="40" r="4" />
+    </svg>
+
+    <div class="wayfarer-stamp wayfarer-stamp--ghost wayfarer-stamp--corner">
+        <span class="stamp-mark">✦</span>
+        <span class="stamp-line">Est. Zivana</span>
+    </div>
+
     <div class="landing-hero-inner">
         <span class="landing-eyebrow">Curated Stays Worldwide</span>
 
@@ -37,9 +46,12 @@
 <!-- About -->
 <section class="landing-about" id="about">
     <div class="about-grid">
-        <!-- <div class="about-mark">“</div> -->
+        <div class="about-copy">
+            <div class="wayfarer-stamp">
+                <span class="stamp-mark">✦</span>
+                <span class="stamp-line">Arrived<br>Stayed<br>Returned</span>
+            </div>
 
-        <div>
             <h2>Welcome to Zivana</h2>
             <p>
                 Zivana helps travelers discover exceptional places to stay, without the
@@ -51,6 +63,16 @@
                 location, price, or the kind of trip you're planning — and book in minutes.
             </p>
         </div>
+
+        <div class="about-collage">
+            <img class="collage-main"
+                 src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1200&auto=format&fit=crop"
+                 alt="Sunlit villa terrace">
+            <img class="collage-accent"
+                 src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800&auto=format&fit=crop"
+                 alt="Cozy cabin interior">
+            <span class="collage-tag">Casa in Positano</span>
+        </div>
     </div>
 </section>
 
@@ -58,29 +80,34 @@
 <!-- Features -->
 <section class="landing-features" id="features">
     <div class="features-head">
+        <span class="landing-eyebrow">The Zivana Promise</span>
         <h2>Why travelers choose Zivana</h2>
     </div>
 
     <div class="features-grid">
         <div class="feature-card">
+            <span class="feature-tag">Verified</span>
             <div class="feature-icon"><i class="fa-solid fa-house"></i></div>
             <h3>Handpicked Homes</h3>
             <p>Every stay is reviewed for quality before it's listed, so there are no surprises at check-in.</p>
         </div>
 
         <div class="feature-card">
+            <span class="feature-tag">From Guests</span>
             <div class="feature-icon"><i class="fa-solid fa-star"></i></div>
             <h3>Trusted Reviews</h3>
             <p>Real feedback from real guests, so you know exactly what to expect.</p>
         </div>
 
         <div class="feature-card">
+            <span class="feature-tag">No Surprises</span>
             <div class="feature-icon"><i class="fa-solid fa-tag"></i></div>
             <h3>Transparent Pricing</h3>
             <p>The price you see is the price you pay — no hidden fees added at checkout.</p>
         </div>
 
         <div class="feature-card">
+            <span class="feature-tag">Worldwide</span>
             <div class="feature-icon"><i class="fa-solid fa-map-location-dot"></i></div>
             <h3>Amazing Locations</h3>
             <p>From city apartments to mountain cabins, find a setting that matches the trip.</p>
@@ -91,6 +118,7 @@
 
 <!-- Stats -->
 <section class="landing-stats">
+    <span class="stats-label">Zivana · Boarding Pass</span>
     <div class="stats-row">
         <div class="stat-item">
             <h3>500+</h3>
@@ -117,6 +145,11 @@
 
 <!-- CTA -->
 <section class="landing-cta">
+    <div class="wayfarer-stamp wayfarer-stamp--ghost">
+        <span class="stamp-mark">✦</span>
+        <span class="stamp-line">Next Stop</span>
+    </div>
+
     <h2>Ready for your <em>next adventure?</em></h2>
     <p>Your next stay is a search away.</p>
 
